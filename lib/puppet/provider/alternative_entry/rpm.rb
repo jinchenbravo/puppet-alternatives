@@ -25,8 +25,12 @@ Puppet::Type.type(:alternative_entry).provide(:rpm) do
     end
   end
 
+  def altnameexist
+    File.foreach('/var/lib/alternatives/' + @resource.value(:altname)).grep(/#{@resource.value(:name).split('/').last}/).any?
+  end
+
   def destroy
-    alternatives('--remove', @resource.value(:altname), @resource.value(:name)) if File.exists?('/var/lib/alternatives/' + @resource.value(:altname))
+    alternatives('--remove', @resource.value(:altname), @resource.value(:name)) if File.exists?('/var/lib/alternatives/' + @resource.value(:altname))  && altnameexist
   end
 
   def self.instances

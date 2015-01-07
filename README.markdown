@@ -6,6 +6,17 @@ Manage alternatives symlinks.
 Synopsis
 --------
 
+    alternatives { 'xyz-conf':
+        path => "/etc/xyz/conf.${xyz::params::xyzrname}",
+    }
+
+    alternative_entry { 'xyz-conf':
+        altname => 'xyz-conf',
+        altlink => '/etc/xyz/conf',
+        name => "/etc/xyz/conf.${xyz::params::xyzname}",
+        priority => 150,
+    }
+
 Using `puppet resource` to inspect alternatives
 
     root@master:~# puppet resource alternatives
