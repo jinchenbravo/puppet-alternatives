@@ -17,6 +17,7 @@ Synopsis
         priority => 150,
     }
 
+
 Using `puppet resource` to inspect alternatives
 
     root@master:~# puppet resource alternatives
