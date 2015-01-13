@@ -17,7 +17,11 @@ Puppet::Type.type(:alternative_entry).provide(:rpm) do
   end
 
   def exists?
-    File.foreach('/var/lib/alternatives/' + @resource.value(:altname)).grep(/#{@resource.value(:name).gsub("/", "\/")}/).any?
+    if ! File.exist?('/var/lib/alternatives/' + @resource.value(:altname))
+      false
+    else
+      File.foreach('/var/lib/alternatives/' + @resource.value(:altname)).grep(/#{@resource.value(:name).gsub("/", "\/")}/).any?
+    end
   end
 
   def destroy
